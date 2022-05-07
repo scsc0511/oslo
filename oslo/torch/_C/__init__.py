@@ -106,3 +106,13 @@ class Binder(object):
             additional_flags.append(f"-maxrregcount={maxrregcount}")
 
         return nvcc_flags + additional_flags
+
+
+class ExpertParallelBinder(Binder):
+    @property
+    def name(self):
+        return "oslo_expert_parallel_cuda"
+
+    def sources(self):
+        return ["expert_parallel_cuda.cu", "expert_parallel_cuda_kernel.cu"]
+

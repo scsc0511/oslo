@@ -11,11 +11,11 @@ def _check_sanity(parallel_context):
         or parallel_context.pipeline_parallel_size > 1
     ):
         raise NotImplementedError(
-            "Moe is not compatible with tensor or pipeline parallel at present."
+            "Expert Parallel is not compatible with tensor or pipeline parallel at present."
         )
 
 
-class ExpertParallelInfo(object):
+class ExpertParallelContextInfo(object):
     def __init__(self, ep_size, dp_size, parallel_context):
         self.ep_size = ep_size
         self.dp_size = dp_size
@@ -116,7 +116,7 @@ class ExpertParallelContext(object):
         # Don't forget to multiply minimum data parallel size
         dp_size *= self.min_dp_size
         if not (ep_size in self.parallel_info_dict):
-            self.parallel_info_dict[ep_size] = ExpertParallelInfo(
+            self.parallel_info_dict[ep_size] = ExpertParallelContextInfo(
                 ep_size, dp_size, self.parallel_context
             )
 
